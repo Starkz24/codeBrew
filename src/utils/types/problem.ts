@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type Example = {
 	id: number;
 	inputText: string;
@@ -5,7 +7,6 @@ export type Example = {
 	explanation?: string;
 	img?: string;
 };
-
 
 export type Problem = {
 	id: string;
@@ -20,6 +21,10 @@ export type Problem = {
 };
 
 export type DBProblem = {
+	starterCode: ReactNode;
+	constraints: string;
+	examples: any;
+	problemStatement: string;
 	id: string;
 	title: string;
 	category: string;

@@ -126,7 +126,6 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
 					/>
 				</div>
 				<div className='w-full px-5 overflow-auto'>
-					{/* testcase heading */}
 					<div className='flex h-10 items-center space-x-6'>
 						<div className='relative flex h-full flex-col justify-center cursor-pointer'>
 							<div className='text-sm font-medium leading-5 text-white'>Testcases</div>
