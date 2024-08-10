@@ -3,7 +3,7 @@ import Coding from '../components/Contest/Contest'
 export default function Contest() {
   return (
     <div>
-      <Coding />
+      <h1>contest</h1>
     </div>
   );
 }

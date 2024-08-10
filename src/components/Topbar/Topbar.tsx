@@ -5,13 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Logout from "../Buttons/Logout";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "@/atoms/authModalAtom";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { BsList } from "react-icons/bs";
 import { useRouter } from "next/router";
-import { problems } from "@/utils/problems";
-import { Problem } from "@/utils/types/problem";
-import Contest from "../Contest/Contest";
-import Coding from "../Coding/Coding";
 
 type TopbarProps = {
   problemPage?: boolean;
@@ -57,7 +51,13 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
               </button>
             </Link>
           )}
-          {user && <Contest/>}
+          {user && (
+            <Link href='/contest'>
+              <button className='bg-dark-fill-3 py-1 px-2 cursor-pointer rounded'>
+                Contest
+              </button>
+            </Link>
+          )}
           {user && <Logout />}
         </div>
       </div>
