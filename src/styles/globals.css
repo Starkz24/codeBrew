@@ -101,3 +101,33 @@ code {
 	color: white;
 	font-size: 1rem;
 }
+
+/* globals.css */
+.typing-animation {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 0.15em solid white; /* Cursor */
+    font-family: monospace;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+  
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: white;
+    }
+  }
+  
