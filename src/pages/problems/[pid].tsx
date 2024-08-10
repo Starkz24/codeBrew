@@ -31,36 +31,38 @@ const ProblemPage = () => {
     if (!problem) return <div className="text-white">Problem not found</div>;
 
     return (
-        <div className="container mx-auto p-4 bg-gray-900 text-white min-h-screen">
-            <h1 className="text-3xl font-bold mb-4">{problem.title}</h1>
-            <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold mb-2">Description</h2>
-                <p className="text-base">{problem.problemStatement}</p>
+        <div className="min-h-screen flex flex-col items-center bg-gray-500">
+            <div className="container mx-auto p-4 text-white flex-grow">
+                <h1 className="text-3xl font-bold mb-4 text-black">{problem.title}</h1>
+                <div className="bg-gray-700 p-4 rounded-lg shadow-md">
+                    <h2 className="text-xl font-semibold mb-2 text-white">Description</h2>
+                    <p className="text-base text-white">{problem.problemStatement}</p>
 
-                <h2 className="text-xl font-semibold mt-4 mb-2">Constraints</h2>
-                <ul className="list-disc list-inside">
-                    {problem.constraints.split('\n').map((constraint, index) => (
-                        <li key={index} className="text-base">{constraint}</li>
+                    <h2 className="text-xl font-semibold mt-4 mb-2 text-white">Constraints</h2>
+                    <ul className="list-disc list-inside">
+                        {problem.constraints.split('\n').map((constraint, index) => (
+                            <li key={index} className="text-base text-white">{constraint}</li>
+                        ))}
+                    </ul>
+
+                    <h2 className="text-xl font-semibold mt-4 mb-2 text-white">Examples</h2>
+                    {problem.examples.map((example) => (
+                        <div key={example.id} className="mb-4 p-4 bg-gray-600 rounded-lg">
+                            <strong className="block text-base text-white">Input:</strong>
+                            <p className="text-base text-white">{example.inputText}</p>
+                            <strong className="block text-base mt-2 text-white">Output:</strong>
+                            <p className="text-base text-white">{example.outputText}</p>
+                            {example.explanation && (
+                                <>
+                                    <strong className="block text-base mt-2 text-white">Explanation:</strong>
+                                    <p className="text-base text-white">{example.explanation}</p>
+                                </>
+                            )}
+                        </div>
                     ))}
-                </ul>
-
-                <h2 className="text-xl font-semibold mt-4 mb-2">Examples</h2>
-                {problem.examples.map((example) => (
-                    <div key={example.id} className="mb-4 p-4 bg-gray-700 rounded-lg">
-                        <strong className="block text-base">Input:</strong>
-                        <p className="text-base">{example.inputText}</p>
-                        <strong className="block text-base mt-2">Output:</strong>
-                        <p className="text-base">{example.outputText}</p>
-                        {example.explanation && (
-                            <>
-                                <strong className="block text-base mt-2">Explanation:</strong>
-                                <p className="text-base">{example.explanation}</p>
-                            </>
-                        )}
-                    </div>
-                ))}
+                </div>
             </div>
-			<Coding/>
+            <Coding />
         </div>
     );
 };
