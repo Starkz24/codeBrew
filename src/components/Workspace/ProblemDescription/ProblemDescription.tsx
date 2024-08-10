@@ -44,11 +44,7 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem, _solve
 						</div>
 						{!loading && currentProblem && (
 							<div className='flex items-center mt-3'>
-								<div
-									className={`${problemDifficultyClass} inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize `}
-								>
-									{currentProblem.difficulty}
-								</div>
+								
 								{(solved || _solved) && (
 									<div className='rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-green-s text-dark-green-s'>
 										<BsCheck2Circle />

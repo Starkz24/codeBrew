@@ -8,7 +8,7 @@ const starterCodeTwoSum = `function twoSum(nums,target){
 const handlerTwoSum = (fn: any) => {
   try {
     const nums = [
-      [2, 7, 11, 15],
+      [1],
       [3, 2, 4],
       [3, 3],
     ];
@@ -46,7 +46,7 @@ export const twoSum: Problem = {
   examples: [
     {
       id: 1,
-      inputText: "nums = [2,7,11,15], target = 9",
+      inputText: "nums = [2,7,11,11], target = 9",
       outputText: "[0,1]",
       explanation: "Because nums[0] + nums[1] == 9, we return [0, 1].",
     },
