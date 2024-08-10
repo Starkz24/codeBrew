@@ -17,14 +17,12 @@ export default function handler(req, res) {
                 return res.json({
                     output: '',
                     errors: stderr,
-                    time: 0,
-                    memory: 0
+                    time: 0
                 });
             }
 
             console.log('Compilation successful.');
             
-
             const startTime = Date.now();
 
             const process = spawn(executable);
@@ -47,20 +45,13 @@ export default function handler(req, res) {
                 const endTime = Date.now();
                 const executionTime = (endTime - startTime) / 1000;
 
-                exec(`ps -o rss= -p ${process.pid}`, (memError, memoryUsage) => {
-                    fs.unlinkSync(codeFile);
-                    fs.unlinkSync(executable);
+                fs.unlinkSync(codeFile);
+                fs.unlinkSync(executable);
 
-                    if (memError) {
-                        console.error('Memory usage error:', memError);
-                        memoryUsage = '0';
-                    }
-                    res.json({
-                        output: output,
-                        errors: errors,
-                        time: executionTime,
-                        memory: memoryUsage.trim()
-                    });
+                res.json({
+                    output: output,
+                    errors: errors,
+                    time: executionTime
                 });
             });
         });
