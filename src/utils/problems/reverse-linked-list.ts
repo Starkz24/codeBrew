@@ -2,7 +2,6 @@ import assert from "assert";
 import { Problem } from "../types/problem";
 import example from "./images/reverseLL.jpg";
 
-// JS doesn't have a built in LinkedList class, so we'll create one
 class LinkedList {
 	value: number;
 	next: LinkedList | null;
@@ -41,7 +40,6 @@ export const reverseLinkedListHandler = (fn: any) => {
 	}
 };
 
-// it creates a linked list from an array
 function createLinkedList(values: number[]): LinkedList {
 	const head = new LinkedList(values[0]);
 	let current = head;
@@ -53,7 +51,6 @@ function createLinkedList(values: number[]): LinkedList {
 	return head;
 }
 
-// it returns an array of values from a linked list
 function getListValues(head: LinkedList): number[] {
 	const values = [];
 	let current: LinkedList | null = head;
