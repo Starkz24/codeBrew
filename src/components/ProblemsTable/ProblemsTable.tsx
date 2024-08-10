@@ -38,14 +38,14 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ setLoadingProblems }) => 
 		<>
 			<tbody className='text-white'>
 				{problems.map((problem, idx) => {
-					const difficulyColor =
+					const difficultyColor =
 						problem.difficulty === "Easy"
 							? "text-dark-green-s"
 							: problem.difficulty === "Medium"
-							? "text-dark-yellow"
-							: "text-dark-pink";
+							? "text-yellow-500"  // Updated to yellow
+							: "text-red-500";
 					return (
-						<tr className={`${idx % 2 == 1 ? "bg-dark-layer-1" : ""}`} key={problem.id}>
+						<tr className={`${idx % 2 === 1 ? "bg-dark-layer-1" : ""}`} key={problem.id}>
 							<th className='px-2 py-4 font-medium whitespace-nowrap text-dark-green-s'>
 								{solvedProblems.includes(problem.id) && <BsCheckCircle fontSize={"18"} width='18' />}
 							</th>
@@ -67,9 +67,9 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ setLoadingProblems }) => 
 									</Link>
 								)}
 							</td>
-							<td className={`px-6 py-4 ${difficulyColor}`}>{problem.difficulty}</td>
-							<td className={"px-6 py-4"}>{problem.category}</td>
-							<td className={"px-6 py-4"}>
+							<td className={`px-6 py-4 ${difficultyColor}`}>{problem.difficulty}</td>
+							<td className='px-6 py-4'>{problem.category}</td>
+							<td className='px-6 py-4'>
 								{problem.videoId ? (
 									<AiFillYoutube
 										fontSize={"28"}
