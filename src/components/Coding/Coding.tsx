@@ -10,11 +10,11 @@ export default function Coding() {
   const [executionTime, setExecutionTime] = useState(0);
   const [memoryUsage, setMemoryUsage] = useState(0);
 
-  const submitCode = async () => {
+  const submitCode = async (customInput = true) => {
     try {
       const response = await axios.post('/api/execute', {
         code,
-        input
+        input: customInput ? input : '' // Use custom input or empty string for default input
       });
 
       const { output, errors, time, memory } = response.data;
@@ -39,7 +39,10 @@ export default function Coding() {
       <textarea
         className={styles.textarea}
         value={code}
-        onChange={(e) => setCode(e.target.value)}
+        onChange={(e) => {
+          console.log('Code:', e.target.value); // Debugging line
+          setCode(e.target.value);
+        }}
         placeholder="Write your C++ code here..."
         rows="10"
         cols="50"
@@ -51,7 +54,10 @@ export default function Coding() {
         onChange={(e) => setInput(e.target.value)}
         placeholder="Enter custom input (e.g., 1 2)"
       />
-      <button className={styles.button} onClick={submitCode}>Run Code</button>
+      <div className={styles.buttonContainer}>
+        <button className={styles.button} onClick={() => submitCode(true)}>Run For Custom Input</button>
+        <button className={`${styles.button} ${styles.greenButton}`} onClick={() => submitCode(false)}>Submit Code</button>
+      </div>
       <div className={styles.output}>
         <h2>Output:</h2>
         <pre>{output}</pre>
