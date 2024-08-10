@@ -54,3 +54,36 @@
   margin: 5px 0;
   font-size: 14px;
 }
+
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between; /* Align buttons to opposite ends */
+  margin-top: 20px;
+}
+
+.greenButton {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.greenButton:hover {
+  background-color: darkgreen; /* Darker shade on hover */
+}
+
+.button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #005bb5; /* Darker shade on hover */
+}
