@@ -1,5 +1,5 @@
 // pages/api/getProblem/[problem_id].js
-import { db } from '../../../firebaseConfig';
+import { firestore } from '../../../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
 export default async function handler(req, res) {
@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   try {
     // Reference to the document in Firestore
-    const docRef = doc(db, 'problems', problem_id);
+    const docRef = doc(firestore, 'problems', problem_id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
