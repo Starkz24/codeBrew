@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { problems } from "@/utils/problems";
 import { Problem } from "@/utils/types/problem";
 import Contest from "../Contest/Contest";
+import Coding from "../Coding/Coding";
 
 type TopbarProps = {
   problemPage?: boolean;
@@ -49,6 +50,7 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
               </button>
             </Link>
           )}
+          {user && <Coding/>}
           {user && <Contest/>}
           {user && <Logout />}
         </div>
