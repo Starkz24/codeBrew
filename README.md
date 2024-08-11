@@ -21,7 +21,7 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 
-cd yourproject
-npm install
+cd yourproject<br>
+npm install<br>
 npm run dev
 
