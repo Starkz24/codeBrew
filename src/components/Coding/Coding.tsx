@@ -76,7 +76,7 @@ export default function Coding() {
           results.push(`Test Case ${i + 1}: Failed`);
         }
       }
-      if(cnt==3) setOutput("All Test Cases Successfully Passed ✌️");
+      if(cnt==3) setOutput("All Test Cases Successfully Passed 🤗");
       else setOutput("OOPS there is some Error 🙄");
       setExecutionTime(time_t);
       setMemoryUsage(memory_t);
