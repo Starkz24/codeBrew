@@ -45,21 +45,28 @@ const ProblemPage = () => {
                         ))}
                     </ul>
 
-                    <h2 className="text-xl font-semibold mt-4 mb-2 text-white">Examples</h2>
-                    {problem.examples.map((example) => (
-                        <div key={example.id} className="mb-4 p-4 bg-gray-600 rounded-lg">
-                            <strong className="block text-base text-white">Input:</strong>
-                            <p className="text-base text-white">{example.inputText}</p>
-                            <strong className="block text-base mt-2 text-white">Output:</strong>
-                            <p className="text-base text-white">{example.outputText}</p>
-                            {example.explanation && (
-                                <>
-                                    <strong className="block text-base mt-2 text-white">Explanation:</strong>
-                                    <p className="text-base text-white">{example.explanation}</p>
-                                </>
-                            )}
-                        </div>
-                    ))}
+                    <h2 className="text-xl font-semibold mt-4 mb-2 text-white">Test Cases</h2>
+
+                    <div className="mb-4 p-4 bg-gray-600 rounded-lg">
+                        <strong className="block text-base text-white">Test Case 1:</strong>
+                        <p className="text-base text-white">{problem.testcase1}</p>
+                        <strong className="block text-base mt-2 text-white">Output 1:</strong>
+                        <p className="text-base text-white">{problem.output1}</p>
+                    </div>
+
+                    <div className="mb-4 p-4 bg-gray-600 rounded-lg">
+                        <strong className="block text-base text-white">Test Case 2:</strong>
+                        <p className="text-base text-white">{problem.testcase2}</p>
+                        <strong className="block text-base mt-2 text-white">Output 2:</strong>
+                        <p className="text-base text-white">{problem.output2}</p>
+                    </div>
+
+                    <div className="mb-4 p-4 bg-gray-600 rounded-lg">
+                        <strong className="block text-base text-white">Test Case 3:</strong>
+                        <p className="text-base text-white">{problem.testcase3}</p>
+                        <strong className="block text-base mt-2 text-white">Output 3:</strong>
+                        <p className="text-base text-white">{problem.output3}</p>
+                    </div>
                 </div>
             </div>
             <Coding />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from '../../styles/Home.module.css';
 import { useRouter } from 'next/router';
@@ -14,6 +14,17 @@ export default function Coding() {
   const [memoryUsage, setMemoryUsage] = useState(0);
   const [testResults, setTestResults] = useState([]);
 
+  useEffect(() => {
+    const savedCode = localStorage.getItem(`code_${pid}`);
+    const savedInput = localStorage.getItem(`input_${pid}`);
+    if (savedCode) setCode(savedCode);
+    if (savedInput) setInput(savedInput);
+  }, [pid]);
+
+  useEffect(() => {
+    localStorage.setItem(`code_${pid}`, code);
+    localStorage.setItem(`input_${pid}`, input);
+  }, [code, input, pid]);
 
   const submitCode = async () => {
     try {
@@ -22,7 +33,7 @@ export default function Coding() {
         input 
       });
 
-      setErrors('')
+      setErrors('');
       const { output, errors, time, memory } = response.data;
       setOutput(output);
       setErrors(errors);
@@ -38,55 +49,12 @@ export default function Coding() {
     }
   };
 
-  const submitForAllTestCases = async (pid) => {
-    try {
-      const testCaseResponse = await axios.get(`/api/getTestCases/${pid}`);
-      const { testcase1, output1, testcase2, output2, testcase3, output3 } = testCaseResponse.data;
-      const testCases = [
-        { input: testcase1, expectedOutput: output1 },
-        { input: testcase2, expectedOutput: output2 },
-        { input: testcase3, expectedOutput: output3 },
-      ];
-
-      let passed = 0;
-      const results = [];
-      let time_t=0;
-      let cnt=0;
-      let memory_t=0;
-      let err=''
-      for (let i = 0; i < testCases.length; i++) {
-        const response = await axios.post('/api/execute', {
-          code,
-          input: testCases[i].input,
-        });
-
-        const { output,errors, time , memory} = response.data;
-        time_t = time_t+time;
-        memory_t=memory_t+memory;
-        if(errors) {
-          results.push(`Test Case ${i + 1}: Failed`);
-          err=errors;
-          continue;
-        }
-        if (output.trim() == testCases[i].expectedOutput.trim()) {
-          passed++;
-          results.push(`Test Case ${i + 1}: Passed`);
-          cnt++;
-        } else {
-          results.push(`Test Case ${i + 1}: Failed`);
-        }
-      }
-      if(cnt==3) setOutput("All Test Cases Successfully Passed ✌️");
-      else setOutput("OOPS there is some Error 🙄");
-      setExecutionTime(time_t);
-      setMemoryUsage(memory_t);
-      setTestResults(results)
-      setErrors(err)
-
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem(`code_${pid}`);
+      localStorage.removeItem(`input_${pid}`);
+    };
+  }, [pid]);
 
   return (
     <div className={styles.container}>
@@ -107,8 +75,7 @@ export default function Coding() {
         placeholder="Enter custom input (e.g., 1 2)"
       />
       <div className={styles.buttonContainer}>
-        <button className={styles.button} onClick={() => submitCode()}>Run For Custom Input</button>
-        <button className={`${styles.button} ${styles.submitButton}`} onClick={() => submitForAllTestCases(pid)}>Submit</button>
+        <button className={styles.button} onClick={submitCode}>Run For Custom Input</button>
       </div>
       <div className={styles.output}>
         <h2>Output:</h2>
