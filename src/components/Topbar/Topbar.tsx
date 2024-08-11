@@ -45,7 +45,7 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
             </Link>
           )}
           {user && (
-            <Link href='/coding'>
+            <Link href='/playground'>
               <button className='bg-dark-fill-3 py-1 px-2 cursor-pointer rounded'>
                 Coding playground
               </button>
