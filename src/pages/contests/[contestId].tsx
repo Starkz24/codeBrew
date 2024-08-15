@@ -58,7 +58,7 @@ const ContestPage: React.FC = () => {
     if (loading) return <div className="text-center text-white">Loading...</div>;
 
     return (
-        <div className="container mx-auto p-4 bg-black text-white">
+        <div className="container h-screen mx-auto p-4 bg-black text-white">
             {contest && (
                 <>
                     <h1 className="text-2xl font-bold mb-4">{contest.title}</h1>
