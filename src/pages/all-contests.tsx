@@ -19,6 +19,7 @@ const AllContests: React.FC = () => {
     
                 if (querySnapshot.empty) {
                     console.log("No contests found.");
+                    
                 } else {
                     const contestsList = querySnapshot.docs.map(doc => {
                         const contestData = doc.data() as Contest;
