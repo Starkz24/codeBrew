@@ -46,7 +46,7 @@ export default function Coding() {
   };
   
 
-  const submitForAllTestCases = async (pid) => {
+  const submitForAllTestCases = async (pid: string | number) => {
     try {
       const testCaseResponse = await axios.get(`/api/getTestCases/${pid}`);
       const { testcase1, output1, testcase2, output2, testcase3, output3 } = testCaseResponse.data;
