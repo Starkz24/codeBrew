@@ -20,30 +20,30 @@ export default function Coding() {
         code,
         input
       });
-  
+
       setErrors('');
       const { output, errors, time, memory } = response.data;
       setOutput(output);
       setErrors(errors);
       setExecutionTime(time);
       setMemoryUsage(memory);
-  
+
     } catch (error) {
       console.error('Error:', error);
       setOutput('');
-  
+
       // Check if error is an instance of Error
       if (error instanceof Error) {
         setErrors(`Error: ${error.message}`);
       } else {
         setErrors('Unknown error occurred');
       }
-  
+
       setExecutionTime(0);
       setMemoryUsage(0);
     }
   };
-  
+
 
   const submitForAllTestCases = async (pid: string | number) => {
     try {
@@ -57,22 +57,22 @@ export default function Coding() {
 
       let passed = 0;
       const results = [];
-      let time_t=0;
-      let cnt=0;
-      let memory_t=0;
-      let err=''
+      let time_t = 0;
+      let cnt = 0;
+      let memory_t = 0;
+      let err = ''
       for (let i = 0; i < testCases.length; i++) {
         const response = await axios.post('/api/execute', {
           code,
           input: testCases[i].input,
         });
 
-        const { output,errors, time , memory} = response.data;
-        time_t = time_t+time;
-        memory_t=memory_t+memory;
-        if(errors) {
+        const { output, errors, time, memory } = response.data;
+        time_t = time_t + time;
+        memory_t = memory_t + memory;
+        if (errors) {
           results.push(`Test Case ${i + 1}: Failed`);
-          err=errors;
+          err = errors;
           continue;
         }
         if (output.trim() == testCases[i].expectedOutput.trim()) {
@@ -83,7 +83,7 @@ export default function Coding() {
           results.push(`Test Case ${i + 1}: Failed`);
         }
       }
-      if(cnt==3) setOutput("All Test Cases Successfully Passed 🤗");
+      if (cnt == 3) setOutput("All Test Cases Successfully Passed 🤗");
       else setOutput("OOPS there is some Error 🙄");
       setExecutionTime(time_t);
       setMemoryUsage(memory_t);
@@ -115,8 +115,20 @@ export default function Coding() {
       />
       <div className={styles.buttonContainer}>
         <button className={styles.button} onClick={() => submitCode()}>Run For Custom Input</button>
-        <button className={`${styles.button} ${styles.submitButton}`} onClick={() => submitForAllTestCases(pid)}>Submit</button>
+        <button
+          className={`${styles.button} ${styles.submitButton}`}
+          onClick={() => {
+            if (typeof pid === 'string') {  // Ensure pid is a string
+              submitForAllTestCases(pid);
+            } else {
+              console.error("Invalid PID:", pid);
+            }
+          }}
+        >
+          Submit
+        </button>
       </div>
+
       <div className={styles.output}>
         <h2>Output:</h2>
         <pre>{output}</pre>
