@@ -12,7 +12,7 @@ export default function Coding() {
   const [errors, setErrors] = useState('');
   const [executionTime, setExecutionTime] = useState(0);
   const [memoryUsage, setMemoryUsage] = useState(0);
-  const [testResults, setTestResults] = useState([]);
+  const [testResults, setTestResults] = useState<string[]>([]);
 
   useEffect(() => {
     const savedCode = localStorage.getItem(`code_${pid}`);
@@ -30,7 +30,7 @@ export default function Coding() {
     try {
       const response = await axios.post('/api/execute', {
         code,
-        input 
+        input
       });
 
       setErrors('');
@@ -43,7 +43,13 @@ export default function Coding() {
     } catch (error) {
       console.error('Error:', error);
       setOutput('');
-      setErrors(`Error: ${error.message}`);
+      
+      if (error instanceof Error) {
+        setErrors(`Error: ${error.message}`);
+      } else {
+        setErrors('Unknown error occurred');
+      }
+
       setExecutionTime(0);
       setMemoryUsage(0);
     }
@@ -64,8 +70,8 @@ export default function Coding() {
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Write your C++ code here..."
-        rows="10"
-        cols="50"
+        rows={10}
+        cols={50}
       />
       <input
         className={styles.input}
@@ -101,3 +107,10 @@ export default function Coding() {
     </div>
   );
 }
+
+export interface ISettings {
+  fontSize: string;
+  dropdownIsOpen: boolean;
+  settingsModalIsOpen: boolean;
+}
+
