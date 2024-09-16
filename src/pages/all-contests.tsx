@@ -22,7 +22,7 @@ const AllContests: React.FC = () => {
                     
                 } else {
                     const contestsList = querySnapshot.docs.map(doc => {
-                        const contestData = doc.data() as Contest;
+                        const { id: contestId, ...contestData } = doc.data() as Contest;
                         console.log("Fetched contest:", contestData); 
                         return { id: doc.id, ...contestData };
                     });
@@ -38,6 +38,7 @@ const AllContests: React.FC = () => {
     
         fetchContests();
     }, []);
+    
 
     if (loading) return <div className="text-center text-white">Loading...</div>;
 
