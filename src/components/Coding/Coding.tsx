@@ -103,8 +103,8 @@ export default function Coding() {
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Write your C++ code here..."
-        rows="10"
-        cols="50"
+        rows={10}
+        cols={50}
       />
       <input
         className={styles.input}
