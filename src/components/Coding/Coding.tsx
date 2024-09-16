@@ -12,8 +12,7 @@ export default function Coding() {
   const [errors, setErrors] = useState('');
   const [executionTime, setExecutionTime] = useState(0);
   const [memoryUsage, setMemoryUsage] = useState(0);
-  const [testResults, setTestResults] = useState([]);
-
+  const [testResults, setTestResults] = useState<string[]>([]);
 
   const submitCode = async () => {
     try {
