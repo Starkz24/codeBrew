@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, query } from "firebase/firestore";
 import { firestore } from "@/firebase/firebase";
-import { Contest } from "@/utils/types/contest";
+import { Contest } from "../utils/types/Contest";
 
 const AllContests: React.FC = () => {
     const [contests, setContests] = useState<Contest[]>([]);
@@ -23,11 +23,11 @@ const AllContests: React.FC = () => {
                 } else {
                     const contestsList = querySnapshot.docs.map(doc => {
                         const contestData = doc.data() as Contest;
-                        console.log("Fetched contest:", contestData); // Log each contest
+                        console.log("Fetched contest:", contestData); 
                         return { id: doc.id, ...contestData };
                     });
                     setContests(contestsList);
-                    console.log("All contests set:", contestsList); // Log the full array
+                    console.log("All contests set:", contestsList);
                 }
             } catch (error) {
                 console.error("Error fetching contests: ", error);
