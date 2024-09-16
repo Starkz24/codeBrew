@@ -19,24 +19,32 @@ export default function Coding() {
     try {
       const response = await axios.post('/api/execute', {
         code,
-        input 
+        input
       });
-
-      setErrors('')
+  
+      setErrors('');
       const { output, errors, time, memory } = response.data;
       setOutput(output);
       setErrors(errors);
       setExecutionTime(time);
       setMemoryUsage(memory);
-
+  
     } catch (error) {
       console.error('Error:', error);
       setOutput('');
-      setErrors(`Error: ${error.message}`);
+  
+      // Check if error is an instance of Error
+      if (error instanceof Error) {
+        setErrors(`Error: ${error.message}`);
+      } else {
+        setErrors('Unknown error occurred');
+      }
+  
       setExecutionTime(0);
       setMemoryUsage(0);
     }
   };
+  
 
   const submitForAllTestCases = async (pid) => {
     try {
