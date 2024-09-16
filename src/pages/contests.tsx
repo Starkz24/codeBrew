@@ -2,8 +2,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/firebase/firebase";
-import { Contest } from "@/utils/types/contest";
-import { Problem } from "@/utils/types/problem";
+import { Contest } from "../utils/types/Contest";
+import { Problem } from "../utils/types/problem";
 
 const ContestPage: React.FC = () => {
     const [contest, setContest] = useState<Contest | null>(null);
