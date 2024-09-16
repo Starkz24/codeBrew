@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/firebase/firebase";
-import { Problem } from "@/utils/types/problem";
+import { Problem } from "../../utils/types/problem";
 import { useEffect, useState } from "react";
 import Coding from "@/components/Coding/Coding";
 
@@ -18,6 +18,8 @@ const ProblemPage = () => {
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     setProblem({ id: docSnap.id, ...docSnap.data() } as Problem);
+                } else {
+                    console.error("Problem not found");
                 }
                 setLoading(false);
             };
@@ -47,26 +49,32 @@ const ProblemPage = () => {
 
                     <h2 className="text-xl font-semibold mt-4 mb-2 text-white">Test Cases</h2>
 
-                    <div className="mb-4 p-4 bg-gray-600 rounded-lg">
-                        <strong className="block text-base text-white">Test Case 1:</strong>
-                        <p className="text-base text-white">{problem.testcase1}</p>
-                        <strong className="block text-base mt-2 text-white">Output 1:</strong>
-                        <p className="text-base text-white">{problem.output1}</p>
-                    </div>
+                    {problem.testcase1 && (
+                        <div className="mb-4 p-4 bg-gray-600 rounded-lg">
+                            <strong className="block text-base text-white">Test Case 1:</strong>
+                            <p className="text-base text-white">{problem.testcase1}</p>
+                            <strong className="block text-base mt-2 text-white">Output 1:</strong>
+                            <p className="text-base text-white">{problem.output1}</p>
+                        </div>
+                    )}
 
-                    <div className="mb-4 p-4 bg-gray-600 rounded-lg">
-                        <strong className="block text-base text-white">Test Case 2:</strong>
-                        <p className="text-base text-white">{problem.testcase2}</p>
-                        <strong className="block text-base mt-2 text-white">Output 2:</strong>
-                        <p className="text-base text-white">{problem.output2}</p>
-                    </div>
+                    {problem.testcase2 && (
+                        <div className="mb-4 p-4 bg-gray-600 rounded-lg">
+                            <strong className="block text-base text-white">Test Case 2:</strong>
+                            <p className="text-base text-white">{problem.testcase2}</p>
+                            <strong className="block text-base mt-2 text-white">Output 2:</strong>
+                            <p className="text-base text-white">{problem.output2}</p>
+                        </div>
+                    )}
 
-                    <div className="mb-4 p-4 bg-gray-600 rounded-lg">
-                        <strong className="block text-base text-white">Test Case 3:</strong>
-                        <p className="text-base text-white">{problem.testcase3}</p>
-                        <strong className="block text-base mt-2 text-white">Output 3:</strong>
-                        <p className="text-base text-white">{problem.output3}</p>
-                    </div>
+                    {problem.testcase3 && (
+                        <div className="mb-4 p-4 bg-gray-600 rounded-lg">
+                            <strong className="block text-base text-white">Test Case 3:</strong>
+                            <p className="text-base text-white">{problem.testcase3}</p>
+                            <strong className="block text-base mt-2 text-white">Output 3:</strong>
+                            <p className="text-base text-white">{problem.output3}</p>
+                        </div>
+                    )}
                 </div>
             </div>
             <Coding />
