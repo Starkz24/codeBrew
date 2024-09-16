@@ -10,21 +10,20 @@ const ContestPage: React.FC = () => {
     const [problems, setProblems] = useState<Problem[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const contestId = "SPECIFY_CONTEST_ID_HERE"; // Dynamically get the contest ID from the URL or context
+    const contestId = "SPECIFY_CONTEST_ID_HERE"; 
 
     useEffect(() => {
         const fetchContestData = async () => {
             try {
                 setLoading(true);
-
-                // Fetch contest details
+    
                 const contestDoc = doc(firestore, "contests", contestId);
                 const contestSnapshot = await getDoc(contestDoc);
                 if (contestSnapshot.exists()) {
                     const contestData = contestSnapshot.data() as Contest;
-                    setContest({ id: contestId, ...contestData });
-
-                    // Fetch related problems
+                    const { id, ...restOfContestData } = contestData; 
+                    setContest({ id: contestId, ...restOfContestData });
+    
                     const problemsIds = Object.keys(contestData.problems);
                     const problemsCollection = collection(firestore, "problems");
                     const problemsList = await Promise.all(
@@ -37,7 +36,7 @@ const ContestPage: React.FC = () => {
                             return null;
                         })
                     );
-
+    
                     setProblems(problemsList.filter((problem): problem is Problem => problem !== null));
                 } else {
                     console.log("No such contest!");
@@ -48,9 +47,10 @@ const ContestPage: React.FC = () => {
                 setLoading(false);
             }
         };
-
+    
         fetchContestData();
     }, [contestId]);
+    
 
     if (loading) return <div className="text-center text-white">Loading...</div>;
 

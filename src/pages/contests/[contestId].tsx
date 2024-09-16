@@ -2,13 +2,13 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { collection, doc, getDoc } from 'firebase/firestore';
 import { firestore } from '@/firebase/firebase';
-import { Contest } from '@/utils/types/contest';
-import { Problem } from '@/utils/types/problem';
+import { Contest } from '../../utils/types/Contest';
+import { Problem } from '../../utils/types/problem';
 import Link from 'next/link';
 
 const ContestPage: React.FC = () => {
     const router = useRouter();
-    const { contestId } = router.query;
+    const contestId = Array.isArray(router.query.contestId) ? router.query.contestId[0] : router.query.contestId;
     const [contest, setContest] = useState<Contest | null>(null);
     const [problems, setProblems] = useState<Problem[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -20,15 +20,16 @@ const ContestPage: React.FC = () => {
             try {
                 setLoading(true);
 
-                // Fetch contest details
-                const contestDoc = doc(firestore, 'contests', contestId as string);
+                const contestDoc = doc(firestore, 'contests', contestId);
                 const contestSnapshot = await getDoc(contestDoc);
                 if (contestSnapshot.exists()) {
                     const contestData = contestSnapshot.data() as Contest;
-                    setContest({ id: contestId as string, ...contestData });
 
-                    // Fetch related problems
-                    const problemsIds = Object.keys(contestData.problems);
+                    // Ensure id is not duplicated
+                    const { id, ...restOfContestData } = contestData;
+                    setContest({ id: contestId, ...restOfContestData });
+
+                    const problemsIds = contestData.problems ? Object.keys(contestData.problems) : [];
                     const problemsCollection = collection(firestore, 'problems');
                     const problemsList = await Promise.all(
                         problemsIds.map(async (problemId) => {
